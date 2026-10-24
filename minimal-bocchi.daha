@@ -1,0 +1,240 @@
+# Minimal Bocchi, a daha pack of roscaa-stack's rice.
+#
+# The rice is roscaa-stack's work: https://github.com/roscaa-stack/dotfiles
+# (this repository is a fork of it). All configs, screenshots and the
+# wallpaper are theirs; this pack only adds this file and daha/, and takes
+# what makes the look: colours, fonts, gaps, the bar's style and the
+# wallpaper, as changes against each app's defaults.
+
+daha = 1
+
+[pack]
+id       = "com.github.okdusty.minimal-bocchi"
+name     = "Minimal Bocchi"
+version  = "1.0.0"
+summary  = "roscaa-stack's pastel Bocchi the Rock rice for Hyprland: kitty, waybar and cava in pywal colours"
+authors  = ["roscaa-stack (the rice, github.com/roscaa-stack/dotfiles)", "Okdusty (the daha pack)"]
+tags     = ["pastel", "anime", "dark", "minimal"]
+desktops = ["hyprland"]
+preview  = ["slideshow", "desktop", "music", "fetch"]
+
+[source]
+repo = "https://github.com/Okdusty/minimal-bocchi.git"
+ref  = "v1.0.0"
+publishers = ["gitlab.com/okdusty"]
+
+[requires]
+fonts = ["JetBrainsMono Nerd Font"]
+
+# --- kitty: the pywal palette as one fragment, the rest as single settings
+
+[apps.kitty]
+
+[[apps.kitty.ops]]
+fragment = "kitty-colors"
+priority = 100
+note     = "colours pywal took from the wallpaper"
+
+[[apps.kitty.ops]]
+key      = "font_family"
+set      = "JetBrainsMono Nerd Font"
+priority = 70
+
+[[apps.kitty.ops]]
+key      = "window_padding_width"
+set      = "20"
+priority = 50
+
+[[apps.kitty.ops]]
+key      = "font_size"
+set      = "11.0"
+priority = 20
+note     = "sized for the creator's laptop"
+
+# --- hyprland: the visible look only. The repository also sets pink border
+# colours, but border_size is 0, so they never show and aren't carried over.
+
+[apps.hyprland]
+
+[[apps.hyprland.ops]]
+key      = ["general", "gaps_in"]
+set      = 6
+priority = 60
+group    = "layout"
+
+[[apps.hyprland.ops]]
+key      = ["general", "gaps_out"]
+set      = 15
+priority = 60
+group    = "layout"
+
+[[apps.hyprland.ops]]
+key      = ["general", "border_size"]
+set      = 0
+priority = 60
+group    = "layout"
+
+[[apps.hyprland.ops]]
+key      = ["decoration", "rounding"]
+set      = 5
+priority = 70
+
+[[apps.hyprland.ops]]
+key      = ["decoration", "blur", "size"]
+set      = 4
+priority = 40
+group    = "blur"
+
+[[apps.hyprland.ops]]
+key      = ["decoration", "blur", "passes"]
+set      = 3
+priority = 40
+group    = "blur"
+
+# --- waybar: colours and style in one fragment, without the original's
+# @import of a symlink into /home/kyokino
+
+[apps.waybar]
+
+[[apps.waybar.ops]]
+target   = "style"
+fragment = "waybar-style"
+priority = 100
+
+# --- the wallpaper, wherever the user's machine keeps it
+
+[apps.hyprpaper]
+
+[[apps.hyprpaper.ops]]
+key      = "preload"
+add      = "{asset:wallpaper}"
+priority = 40
+group    = "wallpaper"
+
+[[apps.hyprpaper.ops]]
+key      = "wallpaper"
+set      = ",{asset:wallpaper}"
+priority = 40
+group    = "wallpaper"
+
+# --- cava: not in the catalog yet, so the pack describes it
+
+[apps.cava]
+config         = "$XDG_CONFIG_HOME/cava/config"
+format         = "ini"
+default-config = "https://raw.githubusercontent.com/karlstav/cava/master/example_files/config"
+reload         = ["signal:cava:USR2"]
+
+[apps.cava.packages]
+apk     = false
+apt     = "cava"
+dnf     = "cava"
+nix     = "cava"
+pacman  = "cava"
+portage = "media-sound/cava"
+xbps    = "cava"
+zypper  = "cava"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient"]
+set      = "1"
+priority = 80
+group    = "spectrum"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient_count"]
+set      = "8"
+priority = 80
+group    = "spectrum"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient_color_1"]
+set      = "'#293352'"
+priority = 80
+group    = "spectrum"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient_color_2"]
+set      = "'#3A476B'"
+priority = 80
+group    = "spectrum"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient_color_3"]
+set      = "'#4B737D'"
+priority = 80
+group    = "spectrum"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient_color_4"]
+set      = "'#57848F'"
+priority = 80
+group    = "spectrum"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient_color_5"]
+set      = "'#A39B65'"
+priority = 80
+group    = "spectrum"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient_color_6"]
+set      = "'#C2B87A'"
+priority = 80
+group    = "spectrum"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient_color_7"]
+set      = "'#E69AB3'"
+priority = 80
+group    = "spectrum"
+
+[[apps.cava.ops]]
+key      = ["color", "gradient_color_8"]
+set      = "'#F0AAC1'"
+priority = 80
+group    = "spectrum"
+
+# --- assets: files in this repository, pinned by sha256
+
+[assets.kitty-colors]
+kind   = "fragment"
+path   = ".config/kitty/themes/Wall-Dcol.conf"
+size   = 721
+digest = "sha256:9a8ad3cbf1d4c5b0dc96a2551e7f3d2b1cf35af800ac55cbc7fa7df3bde5d221"
+
+[assets.waybar-style]
+kind   = "fragment"
+path   = "daha/waybar.css"
+size   = 5021
+digest = "sha256:71927e47cb545ee4c822cc93632593147e1eeab435c6606140230383c167fa26"
+
+[assets.wallpaper]
+kind   = "wallpaper"
+path   = "Pictures/bgs/bocchi-4.png"
+size   = 43357
+digest = "sha256:d4ba5dd0d68d7e36df770170c591d5be9b6433725cd97aecc60420bda44d0393"
+
+[assets.slideshow]
+kind   = "preview"
+path   = "daha/preview.gif"
+size   = 1101983
+digest = "sha256:248104dc34c07639b7aa8686858a89faf5c22e989c2d505b38b35ae6708aadd3"
+
+[assets.desktop]
+kind   = "preview"
+path   = "Screenshots/sc-1.png"
+size   = 464645
+digest = "sha256:dfa7dbc8a713bc591810b9339913252103ae168b85a14282d6f86c1757ca7a2d"
+
+[assets.music]
+kind   = "preview"
+path   = "Screenshots/240407_15h48m00s_screenshot.png"
+size   = 616973
+digest = "sha256:a9727a63bbefaef123e8ed1e2341e1991eda7a898495b7a3025e5dcb83939f57"
+
+[assets.fetch]
+kind   = "preview"
+path   = "Screenshots/240407_15h45m43s_screenshot.png"
+size   = 692590
+digest = "sha256:341aa50bbf458f675bcbe34e56816d6146eb4fa09dd6c9a3c001123384e51c4b"
